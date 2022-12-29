@@ -15,21 +15,19 @@ function App() {
       if (!query) return
 
       try {
-        const response = await fetch(`https://xeno-canto.org/api/2/recordings?query=${query}`)
+        // FETCH API
+        const response = await fetch(`https://symphony-of-birds.onrender.com/api/${query}`)
         const json = await response.json()
 
         // Prevents duplicates
-        if (results.find(bird => bird.id === json.recordings[0].id)) return
-        
-        const picResponse = await fetch(`https://customsearch.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_API_KEY}&cx=${process.env.REACT_APP_BROWSER_KEY}&searchType=image&num=1&rights=cc_publicdomain&q=${json.recordings[0].en}`)
-        const picJson = await picResponse.json()
+        if (results.find(bird => bird.id === json.id)) return
 
         setResults(prevResults => [...prevResults, {
-          id: json.recordings[0].id,
-          name: json.recordings[0].en,
-          audioUrl: json.recordings[0].file,
-          picUrl: picJson.items[0].link
-        }])
+          id: json.id,
+          name: json.name,
+          audioUrl: json.audioUrl,
+          picUrl: json.picUrl
+      }])
       } catch(e) {
         console.error(e)
       }
@@ -47,7 +45,7 @@ function App() {
           <Bird key={item.id} name={item.name} audioUrl={item.audioUrl} picUrl={item.picUrl} id={item.id} results={results} setResults= {setResults}/>
         ))}
       </section>
-      {modal ? <Modal modal={modal} setModal={setModal}/> : 'No!'}
+      {modal && <Modal modal={modal} setModal={setModal}/>}
     </main>
   )
 }
