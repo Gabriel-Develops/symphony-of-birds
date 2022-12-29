@@ -65,6 +65,10 @@ header button {
 /* Birds */
 #birds {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-block: 5%;
+    gap: 1rem;
 }
 
 #bird {
@@ -72,8 +76,17 @@ header button {
     aspect-ratio: 1/1;
     border: 3px solid black;
     border-radius: 10px;
-    color: white;
-    font-weight: 700;
     background-size: cover;
     background-position: center;
+    cursor: pointer;
+    padding-inline: .5rem;
+}
+
+#bird h2 {
+    color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 80%;
 }

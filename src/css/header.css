@@ -50,7 +50,9 @@ a:hover {
 /* BASE STYLES
 /******************************************/
 
-
+html {
+    font-family: 'Roboto', sans-serif;
+}
 
 /* Forms */
 
