@@ -40,7 +40,7 @@ function App() {
       <BirdForm setQuery={setQuery}/>
       <section id="birds">
         {results.map(item => (
-          <Bird key={item.id} name={item.name} audioUrl={item.audioUrl} picUrl={item.picUrl}/>
+          <Bird key={item.id} name={item.name} audioUrl={item.audioUrl} picUrl={item.picUrl} id={item.id} results={results} setResults= {setResults}/>
         ))}
       </section>
     </main>
