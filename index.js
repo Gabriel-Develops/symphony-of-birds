@@ -1,9 +1,11 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const morgan = require('morgan')
 require('dotenv').config()
 
 app.use(cors())
+app.use(morgan('dev'))
 
 app.get('/api/:birdQuery', async (req, res) => {
     const response = await fetch(`https://xeno-canto.org/api/2/recordings?query=${req.params.birdQuery}`)
