@@ -1,8 +1,8 @@
-const Header = () => {
+const Header = ({ title, buttonText }) => {
   return (
     <header>
-        <h1>Symphony of Birds</h1>
-        <button>?</button>
+        <h1>{title}</h1>
+        <button>{buttonText}</button>
     </header>
   )
 }
