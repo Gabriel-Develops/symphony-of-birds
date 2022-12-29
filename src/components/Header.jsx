@@ -1,8 +1,11 @@
-const Header = ({ title, buttonText }) => {
+const Header = ({ title, buttonText, modal, setModal }) => {
+  const toggleModal = () => {
+    setModal(!modal)
+  }
   return (
     <header>
         <h1>{title}</h1>
-        <button>{buttonText}</button>
+        <button onClick={toggleModal}>{buttonText}</button>
     </header>
   )
 }

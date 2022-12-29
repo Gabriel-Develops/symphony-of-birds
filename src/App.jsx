@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Header from './components/Header'
+import Modal from './components/Modal'
 import BirdForm from './components/BirdForm.jsx'
 import Bird from './components/Bird.jsx'
 import backgroundNoise from './sounds/background-rainforest.wav'
@@ -7,6 +8,7 @@ import backgroundNoise from './sounds/background-rainforest.wav'
 function App() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
+  const [modal, setModal] = useState(false)
 
   useEffect( () => {
     async function fetchData() {
@@ -36,25 +38,14 @@ function App() {
   return (
     <main className="App">
       <audio autoPlay loop src={backgroundNoise}></audio>
-      <Header title="Symphony of Birds" buttonText="?"/>
+      <Header title="Symphony of Birds" buttonText="?" modal={modal} setModal={setModal}/>
       <BirdForm setQuery={setQuery}/>
       <section id="birds">
         {results.map(item => (
           <Bird key={item.id} name={item.name} audioUrl={item.audioUrl} picUrl={item.picUrl} id={item.id} results={results} setResults= {setResults}/>
         ))}
       </section>
-      <section id='modal'>
-        <div id='modal-blur'></div>
-        <section id="modal-container">
-          <Header title="How does it work?" buttonText="&#215;"/>
-          <p>Symphony of Birds lets you create your very own symphony using bird sounds as instruments.</p>
-          <p>Simply type in the name of the bird, add it to the symphony and wait for it to start chirping.</p>
-          <p>If you want to remove a bird, simply click on the image of that bird and it will be kicked out of the symphony.</p>
-          <p>The sounds are sourced from the <a href="https://xeno-canto.org/explore/api">Xenu Canto API</a>.</p>
-          <p>The images of the birds are sourced from the <a href="https://developers.google.com/custom-search/v1/introduction">Custom Search JSON API</a>.</p>
-          <p>See more of my work <a href="https://gabriel-dev.netlify.app/">here</a>.</p>
-        </section>
-      </section>
+      {modal ? <Modal modal={modal} setModal={setModal}/> : 'No!'}
     </main>
   )
 }
