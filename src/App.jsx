@@ -12,12 +12,14 @@ function App() {
 
   useEffect( () => {
     async function fetchData() {
-      console.log('hit')
       if (!query) return
 
       try {
         const response = await fetch(`https://xeno-canto.org/api/2/recordings?query=${query}`)
         const json = await response.json()
+
+        // Prevents duplicates
+        if (results.find(bird => bird.id === json.recordings[0].id)) return
         
         const picResponse = await fetch(`https://customsearch.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_API_KEY}&cx=${process.env.REACT_APP_BROWSER_KEY}&searchType=image&num=1&rights=cc_publicdomain&q=${json.recordings[0].en}`)
         const picJson = await picResponse.json()

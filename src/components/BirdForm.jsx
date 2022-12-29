@@ -7,6 +7,7 @@ const BirdForm = ({ setQuery }) => {
         <form onSubmit={e => {
             e.preventDefault()
             setQuery(BirdName)
+            setBirdName('')
           }}
             id="bird-form">
             <input value={BirdName}
