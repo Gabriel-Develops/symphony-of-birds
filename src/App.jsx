@@ -10,8 +10,9 @@ function App() {
   const [results, setResults] = useState([])
   const [modal, setModal] = useState(false)
 
+  // Hooks
   useEffect( () => {
-    async function fetchData() {
+    async function fetchData() {  
       if (!query) return
 
       try {
@@ -22,6 +23,8 @@ function App() {
         // Prevents duplicates
         if (results.find(bird => bird.id === json.id)) return
 
+        // Clears query and results are updated with previous results
+        setQuery('')
         setResults(prevResults => [...prevResults, {
           id: json.id,
           name: json.name,
