@@ -3,12 +3,21 @@ const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
 const fetch = require('node-fetch')
+const rateLimit = require('express-rate-limit')
 require('dotenv').config()
 
 app.use(cors())
 app.use(morgan('dev'))
 
-app.get('/api/:birdQuery', async (req, res) => {
+// API Route Limiting
+const apiLimiter = rateLimit({
+    windowsMs: 60 * 60 * 1000, // 60 Minutes
+    max: 100, // Limit each IP to 100 requests per window (or every 60 minutes)
+    standardHeaders: true, // Return rate limit info in the header
+    legacyHeaders: false // Disables the `X-RateLimit-*` headers
+})
+
+app.get('/api/:birdQuery', apiLimiter, async (req, res) => {
     const response = await fetch(`https://xeno-canto.org/api/2/recordings?query=${req.params.birdQuery}`)
     const json = await response.json()
 
