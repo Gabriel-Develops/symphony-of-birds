@@ -11,6 +11,7 @@ const Modal = ({ modal, setModal }) => {
           <p>The sounds are sourced from the <a href="https://xeno-canto.org/explore/api">Xenu Canto API</a>.</p>
           <p>The images of the birds are sourced from the <a href="https://developers.google.com/custom-search/v1/introduction">Custom Search JSON API</a>.</p>
           <p>See more of my work <a href="https://gabriel-dev.netlify.app/">here</a>.</p>
+          <p>Favicon from <a href="https://icons8.com">Icons8</a>.</p>
         </section>
     </section>
 }
