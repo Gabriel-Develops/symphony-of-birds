@@ -4,6 +4,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const fetch = require('node-fetch')
 const rateLimit = require('express-rate-limit')
+const apicache = require('apicache')
 require('dotenv').config()
 
 app.use(cors())
@@ -17,7 +18,10 @@ const apiLimiter = rateLimit({
     legacyHeaders: false // Disables the `X-RateLimit-*` headers
 })
 
-app.get('/api/:birdQuery', apiLimiter, async (req, res) => {
+// API caching
+const cache = apicache.middleware
+
+app.get('/api/:birdQuery', apiLimiter, cache('15 minutes'), async (req, res) => {
     const response = await fetch(`https://xeno-canto.org/api/2/recordings?query=${req.params.birdQuery}`)
     const json = await response.json()
 
