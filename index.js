@@ -17,13 +17,14 @@ const apiLimiter = rateLimit({
     standardHeaders: true, // Return rate limit info in the header
     legacyHeaders: false // Disables the `X-RateLimit-*` headers
 })
-
 // API caching
 const cache = apicache.middleware
 
 app.get('/api/:birdQuery', apiLimiter, cache('15 minutes'), async (req, res) => {
-    const response = await fetch(`https://xeno-canto.org/api/2/recordings?query=${req.params.birdQuery}`)
+    const response = await fetch(`https://xeno-canto.org/api/2/recordings?query=${req.params.birdQuery.toLowerCase()}`)
     const json = await response.json()
+
+    if (!json.recordings.length) return res.status(404).send()
 
     // Google Custom Search API - You can generate yours here https://console.developers.google.com/apis/
     // Google Search Engine - You can create a browser here https://cse.google.fr/cse/all

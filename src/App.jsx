@@ -12,19 +12,19 @@ function App() {
 
   // Hooks
   useEffect( () => {
-    async function fetchData() {  
-      if (!query) return
-
+    async function fetchData(search) {  
       try {
+        if (!search) return
         // FETCH API
-        const response = await fetch(`https://symphony-of-birds.onrender.com/api/${query}`)
+        const response = await fetch(`http://localhost:2121/api/${search}`)
         const json = await response.json()
 
-        // Prevents duplicates
-        if (results.find(bird => bird.id === json.id)) return
+        // No information received from api call and prevents duplicates
+        if (response.status === 404 || results.find(bird => bird.id === json.id)) {
+          return
+        }
 
-        // Clears query and results are updated with previous results
-        setQuery('')
+        // Results are updated with previous results
         setResults(prevResults => [...prevResults, {
           id: json.id,
           name: json.name,
@@ -35,7 +35,9 @@ function App() {
         console.error(e)
       }
     }
-    fetchData()
+    fetchData(query.toLowerCase())
+    // Resets query
+    setQuery('')
   }, [query])
   
   return (
