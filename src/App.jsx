@@ -16,7 +16,7 @@ function App() {
       try {
         if (!search) return
         // FETCH API
-        const response = await fetch(`http://localhost:2121/api/${search}`)
+        const response = await fetch(`https://symphony-of-birds.onrender.com/api/${search}`)
         const json = await response.json()
 
         // No information received from api call and prevents duplicates
