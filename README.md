@@ -5,7 +5,7 @@ A React application that allows users to create music through Bird Calls.
 
 <p align="center">
   <a href="https://symphony-of-birds.netlify.app/">
-    <img src="" max-width="1000px" alt="Preview"/>
+    <img src="symphony-of-birds-preview.PNG" max-width="1000px" alt="Preview"/>
   </a>
 </p>
 
